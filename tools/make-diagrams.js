@@ -216,7 +216,7 @@ function revisionLoop() {
     w,
     h,
     'The revision loop is where skills leak tokens',
-    'Every edit needs a fresh verdict. Reading a 76-token verdict beats re-reading the document.'
+    `Every edit needs a fresh verdict. Reading a ${M.verdicts.lint_pass_text}-token verdict beats re-reading the document.`
   );
   const x0 = 130;
   const y0 = 360;

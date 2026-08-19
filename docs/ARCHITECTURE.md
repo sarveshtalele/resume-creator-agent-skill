@@ -108,7 +108,7 @@ LinkedIn PDF ──▶ extract-linkedin.js ──▶ profile.txt ──┤      
                                           │            │          │          ▼
                                           └──▶ notes.md┘          └── lint-resume.js
                                                    ▲                        │
-                          interview answers ───────┘                 verdict (76 tokens)
+                          interview answers ───────┘                 verdict (59 tokens)
 ```
 
 `notes.md` is the fact base and the anchor for the truthfulness gate: every line in the resume traces to an entry in it, and every entry carries its source — profile export, supplied document, or interview answer. A claim with no traceable source is raised as a gap in the plan instead of written into the draft.
@@ -220,7 +220,7 @@ Install is a recursive copy that skips `node_modules` and `.DS_Store`. An existi
 
 **One template for every posting.** Layout is what parsers read; wording is what should vary per job. A per-job layout would multiply the failure surface for zero benefit.
 
-**Validation in a script, not in the prompt.** Structural rules asked of a model are followed most of the time. Asked of a regular expression, they are followed every time — and the answer costs 76 tokens instead of a re-read plus reasoning.
+**Validation in a script, not in the prompt.** Structural rules asked of a model are followed most of the time. Asked of a regular expression, they are followed every time — and the answer costs 59 tokens instead of a re-read plus reasoning.
 
 **Refusing to fabricate is a hard rule, not a preference.** The truthfulness gate is in the skill's non-negotiables and repeated in the writing rules, because an invented claim is a problem the candidate discovers in an interview, not one the agent ever sees.
 

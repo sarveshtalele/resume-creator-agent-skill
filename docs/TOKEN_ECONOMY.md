@@ -38,7 +38,7 @@ What is **not** claimed anywhere: any comparison against a hypothetical agent wo
 | `SKILL.md` | **2,505** | Once, when the skill triggers |
 | One reference file | **879–1,142** | When the phase that needs it begins |
 | All five references | 4,878 | Only if a run needed all of them, which is rare |
-| One validator verdict | **76** | Per validation call |
+| One validator verdict | **59** | Per validation call |
 | Script source | 9,218 | **Never** — executed as a subprocess |
 | Whole bundle on disk | 19,567 | — |
 
@@ -83,7 +83,7 @@ The five reference files hold 4,878 tokens of domain knowledge: the template con
 
 The knowledge is not gone. It opens when its phase begins — usually one file, 879 to 1,142 tokens. A run that drafts and renders without incident touches `writing-rules.md` and nothing else.
 
-**A typical run**: 130 resident + 2,505 on trigger + 1,142 for one reference + 203 across two script verdicts ≈ **3,980 tokens**, or **80% less than reading the bundle**.
+**A typical run**: 130 resident + 2,505 on trigger + 1,142 for one reference + 170 across two script verdicts ≈ **3,947 tokens**, or **80% less than reading the bundle**.
 
 ---
 
@@ -98,15 +98,15 @@ Resume work is revision work. The draft is rarely the deliverable; the fourth ve
 | Per cycle | Tokens |
 |:--|--:|
 | Re-reading the resume document | **538** |
-| Reading the validator's verdict | **76** |
-| A failing verdict, with seven errors quoted | 327 |
-| The same verdict as JSON | 127 |
+| Reading the validator’s verdict | **59** |
+| A failing verdict, with seven errors quoted | 310 |
+| The same verdict as JSON | 111 |
 
 | After | Verdicts | Re-reads |
 |:--|--:|--:|
-| 1 revision | 76 | 538 |
-| 3 revisions | 228 | 1,614 |
-| 5 revisions | **380** | **2,690** |
+| 1 revision | 59 | 538 |
+| 3 revisions | 177 | 1,614 |
+| 5 revisions | **295** | **2,690** |
 
 The verdict is also strictly more informative than a re-read: it carries the structural findings, the estimated page fill, and the keyword coverage — three things a re-read would still have to work out afterwards.
 
@@ -118,7 +118,7 @@ The verdict is also strictly more informative than a re-read: it carries the str
 
 **2. Knowledge behind doors, not in the hallway.** Five reference files, opened by phase. 66% off the trigger cost.
 
-**3. Deterministic work in scripts.** Layout arithmetic, date-format checks, page counting, and keyword coverage are exact computations. Running them costs a subprocess and returns 76 tokens; reasoning them out in-context costs a document re-read every time and is less reliable.
+**3. Deterministic work in scripts.** Layout arithmetic, date-format checks, page counting, and keyword coverage are exact computations. Running them costs a subprocess and returns 59 tokens; reasoning them out in-context costs a document re-read every time and is less reliable.
 
 **4. Compact, decision-shaped output.** The validator prints a verdict, not a transcript: pass or fail, counts, page fill, coverage, and only the codes that fired. `--json` exists for when the agent needs to branch on a specific field.
 

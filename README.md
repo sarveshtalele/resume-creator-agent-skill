@@ -98,10 +98,10 @@ resume-out/jane-doe-acme-senior-data-engineer/
 Skills get expensive in three places: what sits in context permanently, what gets pulled in when they trigger, and what gets re-read on every revision. This one is measured on all three — reproduce every number with `npm run measure`.
 
 <p align="center">
-  <img src="docs/assets/context-layers.svg" alt="Bar chart: 130 tokens always resident, 2,505 on trigger, about 1,000 per reference file opened on demand, 76 per validator verdict, and 9,218 tokens of script source that is executed but never read" width="100%">
+  <img src="docs/assets/context-layers.svg" alt="Bar chart: 130 tokens always resident, 2,505 on trigger, about 1,000 per reference file opened on demand, 59 per validator verdict, and 9,218 tokens of script source that is executed but never read" width="100%">
 </p>
 
-The bundle is **19,567 tokens**. What is permanently resident is the **130-token description line** — 0.7% of it. Nearly half the bundle is script source that runs as a subprocess and never enters the context window at all: the model reads a 76-token verdict instead of doing layout arithmetic in its head.
+The bundle is **19,567 tokens**. What is permanently resident is the **130-token description line** — 0.7% of it. Nearly half the bundle is script source that runs as a subprocess and never enters the context window at all: the model reads a 59-token verdict instead of doing layout arithmetic in its head.
 
 <p align="center">
   <img src="docs/assets/disclosure-vs-inline.svg" alt="Column chart comparing 7,383 tokens if all references were inlined into SKILL.md against 2,505 tokens for this skill at trigger time" width="100%">
@@ -110,10 +110,10 @@ The bundle is **19,567 tokens**. What is permanently resident is the **130-token
 The same knowledge written as one long skill file would cost **7,383 tokens** every time it triggered. Split across five reference files that open only when their phase begins, the trigger cost is **2,505** — **66% lighter**, with nothing removed.
 
 <p align="center">
-  <img src="docs/assets/revision-loop.svg" alt="Line chart: over five revisions, reading validator verdicts costs 380 tokens cumulatively versus 2,690 tokens for re-reading the resume each time" width="100%">
+  <img src="docs/assets/revision-loop.svg" alt="Line chart: over five revisions, reading validator verdicts costs 295 tokens cumulatively versus 2,690 tokens for re-reading the resume each time" width="100%">
 </p>
 
-Revision is where resume work actually happens, and where a naive skill bleeds. Re-reading the document to check it costs **538 tokens per cycle**; reading the validator's verdict costs **76** — and the verdict already contains the structural findings, page fill, and keyword coverage that a re-read would still have to reason out.
+Revision is where resume work actually happens, and where a naive skill bleeds. Re-reading the document to check it costs **538 tokens per cycle**; reading the validator's verdict costs **59** — and the verdict already contains the structural findings, page fill, and keyword coverage that a re-read would still have to reason out.
 
 Full methodology, per-file table, and caveats: **[docs/TOKEN_ECONOMY.md](docs/TOKEN_ECONOMY.md)**.
 

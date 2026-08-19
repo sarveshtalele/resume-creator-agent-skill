@@ -69,7 +69,8 @@ test('every bundled file is referenced from SKILL.md', () => {
 });
 
 test('SKILL.md frontmatter is valid and under the line budget', () => {
-  const md = fs.readFileSync(path.join(SKILL, 'SKILL.md'), 'utf8');
+  // normalise line endings: a Windows checkout can carry CRLF
+  const md = fs.readFileSync(path.join(SKILL, 'SKILL.md'), 'utf8').replace(/\r\n/g, '\n');
   const fm = md.match(/^---\n([\s\S]*?)\n---/);
   assert.ok(fm, 'no frontmatter block');
   assert.ok(/\nname: resume-architect\n/.test('\n' + fm[1] + '\n'), 'name must match the folder');
@@ -227,11 +228,12 @@ if (!engine) {
       const out = path.join(tmp, 'resume.pdf');
       const res = spawnSync(pdftotext, ['-layout', out, '-'], { encoding: 'utf8' });
       const text = res.stdout;
-      const flat = text.toLowerCase();
+      // headings render uppercase via CSS, so compare case-insensitively as parsers do,
+      // and normalise dashes because extractors transcode en dashes differently per platform
+      const flat = text.toLowerCase().replace(/[‐-―]/g, '-');
       assert.ok(text.trim().startsWith('Jane Doe'), 'name must be the first text');
-      // headings render uppercase via CSS, so compare case-insensitively as parsers do
       ['jane.doe@example.com', 'professional summary', 'skills', 'professional experience',
-        'acme analytics', 'senior data engineer', 'mar 2022 – present', 'education',
+        'acme analytics', 'senior data engineer', 'mar 2022 - present', 'education',
         'rice university'].forEach((needle) => {
         assert.ok(flat.includes(needle), `parser cannot see: ${needle}`);
       });

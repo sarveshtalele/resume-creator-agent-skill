@@ -82,13 +82,13 @@
     "whole_bundle": 19567
   },
   "verdicts": {
-    "lint_pass_text": 76,
-    "lint_pass_json": 127,
-    "lint_failing_text": 327,
+    "lint_pass_text": 59,
+    "lint_pass_json": 111,
+    "lint_failing_text": 310,
     "resume_document": 538
   },
   "derived": {
     "inlined": 7383,
-    "typicalRun": 3980
+    "typicalRun": 3947
   }
 }

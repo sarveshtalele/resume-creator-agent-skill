@@ -48,8 +48,14 @@ function sum(rows) {
   return rows.reduce((n, r) => n + r.tokens, 0);
 }
 
+/**
+ * Run a bundled script and count its output. Paths stay relative and the child
+ * runs from the repository root, so the measurement is identical on every
+ * machine — an absolute path in the output would tokenize differently per host
+ * and make the published numbers unreproducible.
+ */
 function scriptOutput(args) {
-  const res = spawnSync(process.execPath, args, { encoding: 'utf8' });
+  const res = spawnSync(process.execPath, args, { encoding: 'utf8', cwd: ROOT });
   return count((res.stdout || '') + (res.stderr || ''));
 }
 
@@ -62,9 +68,9 @@ function main() {
   const references = files.filter((f) => f.file.startsWith('references/'));
   const scripts = files.filter((f) => f.file.startsWith('scripts/'));
 
-  const sample = path.join(ROOT, 'test', 'fixtures', 'sample-resume.md');
-  const bad = path.join(ROOT, 'test', 'fixtures', 'bad-resume.md');
-  const lint = path.join(SKILL, 'scripts', 'lint-resume.js');
+  const sample = 'test/fixtures/sample-resume.md';
+  const bad = 'test/fixtures/bad-resume.md';
+  const lint = 'skills/resume-architect/scripts/lint-resume.js';
 
   const layers = {
     metadata_description_always_resident: count(description),
@@ -80,7 +86,7 @@ function main() {
     lint_pass_text: scriptOutput([lint, sample, '--keywords', 'airflow,dbt,snowflake,kubernetes']),
     lint_pass_json: scriptOutput([lint, sample, '--json']),
     lint_failing_text: scriptOutput([lint, bad]),
-    resume_document: countFile(sample),
+    resume_document: countFile(path.join(ROOT, sample)),
   };
 
   process.stdout.write(`method: ${method}\n\nPer file\n`);
