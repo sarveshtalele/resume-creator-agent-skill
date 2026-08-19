@@ -1,0 +1,56 @@
+{
+  "$schema": "https://agentskills.io/schemas/skill-card-v1.json",
+  "name": "resume-architect",
+  "version": "1.0.0",
+  "title": "Resume Architect",
+  "description": "Builds a tailored one-page ATS-safe resume from a job description and a LinkedIn profile export, gated by plan approval and Markdown approval before the PDF is rendered.",
+  "category": "career",
+  "sdlc_phase": "Authoring",
+  "license": "MIT",
+  "maintainer": "sarveshtalele",
+  "runtime": {
+    "language": "javascript",
+    "engine": "node>=18",
+    "npm_dependencies": 0,
+    "network_access": "none"
+  },
+  "capabilities": [
+    "job-description-keyword-extraction",
+    "linkedin-pdf-context-ingestion",
+    "structured-intake-interview",
+    "plan-before-draft-gating",
+    "ats-markdown-resume-generation",
+    "one-page-layout-validation",
+    "markdown-to-pdf-rendering"
+  ],
+  "human_gates": [
+    {
+      "id": "gate-a",
+      "stage": "plan",
+      "requires": "explicit approval of plan.md before any resume text is written"
+    },
+    {
+      "id": "gate-b",
+      "stage": "markdown",
+      "requires": "explicit approval of resume.md before the PDF is rendered"
+    }
+  ],
+  "outputs": [
+    { "path": "resume-out/<slug>/notes.md", "kind": "fact-base" },
+    { "path": "resume-out/<slug>/keywords.txt", "kind": "keyword-list" },
+    { "path": "resume-out/<slug>/plan.md", "kind": "plan" },
+    { "path": "resume-out/<slug>/resume.md", "kind": "deliverable" },
+    { "path": "resume-out/<slug>/resume.pdf", "kind": "deliverable" }
+  ],
+  "safety": {
+    "writes_outside_workspace": false,
+    "sends_data_externally": false,
+    "executes_remote_code": false,
+    "fabrication_policy": "every claim traces to the profile export, a supplied document, or an interview answer"
+  },
+  "quality": {
+    "evals": "evals/evals.json",
+    "eval_count": 8,
+    "validator": "scripts/lint-resume.js"
+  }
+}

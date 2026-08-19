@@ -1,0 +1,107 @@
+{
+  "skill_name": "resume-architect",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": "eval-001",
+      "prompt": "Create a resume based on this Senior Data Engineer job description. My LinkedIn export is at ~/Downloads/Profile.pdf",
+      "expected_output": "Parses the posting and the profile, runs a batched interview, writes plan.md, and waits for approval before drafting any resume text.",
+      "files": [],
+      "assertions": [
+        "contains:resume-architect",
+        "contains:Gate A",
+        "contains:plan.md",
+        "matches:(?i)(interview|questions?)\\b",
+        "Runs a structured intake interview and requires plan approval before drafting"
+      ]
+    },
+    {
+      "id": "eval-002",
+      "prompt": "Which resume template should be used and why is it ATS safe?",
+      "expected_output": "Names the universal single-column reverse-chronological template with standard headings and Mon YYYY dates.",
+      "files": [],
+      "assertions": [
+        "contains:single-column",
+        "contains:reverse-chronological",
+        "contains:Professional Experience",
+        "matches:Mon YYYY",
+        "file:references/ats-template.md"
+      ]
+    },
+    {
+      "id": "eval-003",
+      "prompt": "Write the resume markdown file for the approved plan and check it fits one page.",
+      "expected_output": "Fills the template skeleton, runs the validator, and reports errors, warnings, page fill, and keyword coverage.",
+      "files": [],
+      "assertions": [
+        "contains:lint-resume.js",
+        "contains:page fill",
+        "contains:keyword coverage",
+        "file:scripts/lint-resume.js",
+        "file:assets/resume-template.md"
+      ]
+    },
+    {
+      "id": "eval-004",
+      "prompt": "I edited resume.md myself. Change the third Acme bullet to the cost reduction work.",
+      "expected_output": "Re-reads the file from disk, applies the edit, re-runs the validator, reports the new page fill, and asks for approval.",
+      "files": [],
+      "assertions": [
+        "contains:re-read it from disk",
+        "contains:Gate B",
+        "matches:(?i)re-?run the validator",
+        "Applies revisions and re-validates before asking for approval again"
+      ]
+    },
+    {
+      "id": "eval-005",
+      "prompt": "Approved — convert the markdown resume to PDF.",
+      "expected_output": "Renders the approved Markdown to a text-based PDF, verifies the page count, and reports the path and engine used.",
+      "files": [],
+      "assertions": [
+        "contains:md-to-pdf.js",
+        "contains:page count",
+        "matches:(?i)(chrome|wkhtmltopdf|weasyprint)",
+        "file:scripts/md-to-pdf.js",
+        "file:assets/resume.css"
+      ]
+    },
+    {
+      "id": "eval-006",
+      "prompt": "The rendered PDF came out as two pages. Fix it.",
+      "expected_output": "Applies the documented trimming order, re-validates, re-renders, and confirms a one-page result.",
+      "files": [],
+      "assertions": [
+        "contains:two pages",
+        "contains:oldest role",
+        "matches:(?i)(trim|cut)",
+        "file:references/pdf-pipeline.md",
+        "file:references/writing-rules.md"
+      ]
+    },
+    {
+      "id": "eval-007",
+      "prompt": "The posting wants Kafka but I have never used it. Put it in anyway.",
+      "expected_output": "Declines to write an unsupported claim, records the gap, and suggests covering it outside the resume.",
+      "files": [],
+      "assertions": [
+        "contains:truthfulness gate",
+        "contains:cover letter",
+        "matches:(?i)no invented facts",
+        "file:references/writing-rules.md"
+      ]
+    },
+    {
+      "id": "eval-008",
+      "prompt": "My LinkedIn PDF will not extract on this machine.",
+      "expected_output": "Detects exit code 4 from the extractor and falls back to the agent's own PDF reader without stalling the run.",
+      "files": [],
+      "assertions": [
+        "contains:extract-linkedin.js",
+        "contains:Exit code 4",
+        "matches:(?i)(pdftotext|mutool)",
+        "file:scripts/extract-linkedin.js"
+      ]
+    }
+  ]
+}

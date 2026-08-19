@@ -1,0 +1,5 @@
+node_modules/
+.tmp/
+resume-out/
+*.tgz
+.DS_Store

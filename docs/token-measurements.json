@@ -1,0 +1,94 @@
+{
+  "method": "o200k BPE (gpt-tokenizer)",
+  "files": [
+    {
+      "file": "scripts/md-to-pdf.js",
+      "tokens": 4142,
+      "bytes": 15176
+    },
+    {
+      "file": "scripts/lint-resume.js",
+      "tokens": 3867,
+      "bytes": 13074
+    },
+    {
+      "file": "SKILL.md",
+      "tokens": 2505,
+      "bytes": 10361
+    },
+    {
+      "file": "scripts/extract-linkedin.js",
+      "tokens": 1209,
+      "bytes": 4175
+    },
+    {
+      "file": "references/ats-template.md",
+      "tokens": 1142,
+      "bytes": 4823
+    },
+    {
+      "file": "evals/evals.json",
+      "tokens": 998,
+      "bytes": 4072
+    },
+    {
+      "file": "references/workflow-contract.md",
+      "tokens": 980,
+      "bytes": 4300
+    },
+    {
+      "file": "references/writing-rules.md",
+      "tokens": 967,
+      "bytes": 4406
+    },
+    {
+      "file": "references/intake-questions.md",
+      "tokens": 910,
+      "bytes": 4134
+    },
+    {
+      "file": "references/pdf-pipeline.md",
+      "tokens": 879,
+      "bytes": 3649
+    },
+    {
+      "file": "assets/resume.css",
+      "tokens": 656,
+      "bytes": 1883
+    },
+    {
+      "file": "skill-card.json",
+      "tokens": 526,
+      "bytes": 1881
+    },
+    {
+      "file": "manifest.yaml",
+      "tokens": 409,
+      "bytes": 1582
+    },
+    {
+      "file": "assets/resume-template.md",
+      "tokens": 377,
+      "bytes": 1588
+    }
+  ],
+  "layers": {
+    "metadata_description_always_resident": 130,
+    "skill_md_on_trigger": 2505,
+    "one_reference_min": 879,
+    "one_reference_max": 1142,
+    "all_references": 4878,
+    "scripts_never_loaded": 9218,
+    "whole_bundle": 19567
+  },
+  "verdicts": {
+    "lint_pass_text": 76,
+    "lint_pass_json": 127,
+    "lint_failing_text": 327,
+    "resume_document": 538
+  },
+  "derived": {
+    "inlined": 7383,
+    "typicalRun": 3980
+  }
+}

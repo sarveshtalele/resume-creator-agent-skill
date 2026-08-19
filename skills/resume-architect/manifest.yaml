@@ -1,0 +1,63 @@
+apiVersion: agentskills.io/v1
+kind: Skill
+metadata:
+  name: resume-architect
+  version: 1.0.0
+  license: MIT
+  homepage: https://github.com/sarveshtalele/resume-creator-agent-skill
+  tags:
+    - resume
+    - ats
+    - job-search
+    - pdf-generation
+    - markdown
+spec:
+  summary: >
+    Interview-driven builder for a tailored, ATS-safe, one-page resume: reads a job description and
+    an exported LinkedIn profile, plans before drafting, writes editable Markdown, and renders a
+    text-based PDF after explicit approval.
+  entrypoint: SKILL.md
+  compatibility:
+    runtime: Node.js 18+
+    platforms:
+      - darwin
+      - linux
+      - win32
+  dependencies:
+    npm: []
+    optional_binaries:
+      - name: chrome
+        purpose: primary PDF rendering engine
+      - name: wkhtmltopdf
+        purpose: fallback PDF rendering engine
+      - name: weasyprint
+        purpose: fallback PDF rendering engine
+      - name: pdftotext
+        purpose: LinkedIn PDF text extraction and PDF read-back verification
+  tools:
+    - Read
+    - Write
+    - Edit
+    - Glob
+    - Grep
+    - AskUserQuestion
+    - Bash
+  bundle:
+    scripts:
+      - scripts/extract-linkedin.js
+      - scripts/lint-resume.js
+      - scripts/md-to-pdf.js
+    references:
+      - references/ats-template.md
+      - references/intake-questions.md
+      - references/writing-rules.md
+      - references/workflow-contract.md
+      - references/pdf-pipeline.md
+    assets:
+      - assets/resume-template.md
+      - assets/resume.css
+    evals:
+      - evals/evals.json
+  network: none
+  writes:
+    - resume-out/

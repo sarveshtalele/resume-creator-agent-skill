@@ -1,0 +1,54 @@
+{
+  "name": "resume-creator-agent-skill",
+  "version": "1.0.0",
+  "description": "Agent skill that builds a tailored, ATS-safe, one-page resume from a job description and a LinkedIn profile export: interview, plan approval, editable Markdown, then PDF.",
+  "keywords": [
+    "resume",
+    "cv",
+    "ats",
+    "job-search",
+    "claude",
+    "agent-skill",
+    "claude-code",
+    "markdown-to-pdf"
+  ],
+  "license": "MIT",
+  "type": "commonjs",
+  "bin": {
+    "resume-creator-agent-skill": "bin/cli.js",
+    "resume-architect": "bin/cli.js"
+  },
+  "main": "lib/install.js",
+  "files": [
+    "bin/",
+    "lib/",
+    "skills/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node test/e2e.test.js",
+    "measure": "node tools/measure-tokens.js",
+    "diagrams": "node tools/make-diagrams.js",
+    "lint:demo": "node skills/resume-architect/scripts/lint-resume.js test/fixtures/sample-resume.md",
+    "pdf:demo": "node skills/resume-architect/scripts/md-to-pdf.js test/fixtures/sample-resume.md -o .tmp/demo.pdf --json"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarveshtalele/resume-creator-agent-skill.git"
+  },
+  "homepage": "https://github.com/sarveshtalele/resume-creator-agent-skill#readme",
+  "bugs": {
+    "url": "https://github.com/sarveshtalele/resume-creator-agent-skill/issues"
+  },
+  "author": "Sarvesh Talele",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "gpt-tokenizer": "^4.0.0"
+  }
+}
