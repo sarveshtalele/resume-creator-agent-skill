@@ -227,17 +227,24 @@ if (!engine) {
     test('rendered PDF is text-selectable in document order', () => {
       const out = path.join(tmp, 'resume.pdf');
       const res = spawnSync(pdftotext, ['-layout', out, '-'], { encoding: 'utf8' });
+      // Normalise the way parsers do before comparing: headings render uppercase via CSS,
+      // extractors transcode en dashes differently per platform, and some poppler builds
+      // insert spacing between letter-spaced glyphs. None of that changes what an ATS reads.
       const text = res.stdout;
-      // headings render uppercase via CSS, so compare case-insensitively as parsers do,
-      // and normalise dashes because extractors transcode en dashes differently per platform
-      const flat = text.toLowerCase().replace(/[‐-―]/g, '-');
-      assert.ok(text.trim().startsWith('Jane Doe'), 'name must be the first text');
+      const norm = (s) => s.toLowerCase().replace(/[‐-―]/g, '-').replace(/\s+/g, '');
+      const flat = norm(text);
+      const sample = text.replace(/\s+/g, ' ').slice(0, 300);
+
+      assert.ok(text.trim().startsWith('Jane Doe'), `name must be the first text — got: ${sample}`);
       ['jane.doe@example.com', 'professional summary', 'skills', 'professional experience',
         'acme analytics', 'senior data engineer', 'mar 2022 - present', 'education',
         'rice university'].forEach((needle) => {
-        assert.ok(flat.includes(needle), `parser cannot see: ${needle}`);
+        assert.ok(flat.includes(norm(needle)), `parser cannot see "${needle}" — got: ${sample}`);
       });
-      assert.ok(flat.indexOf('professional summary') < flat.indexOf('professional experience'), 'section order');
+      assert.ok(
+        flat.indexOf(norm('professional summary')) < flat.indexOf(norm('professional experience')),
+        'sections must appear in document order'
+      );
       assert.ok(text.indexOf('Acme Analytics') < text.indexOf('Senior Data Engineer'), 'company must precede title');
     });
 
