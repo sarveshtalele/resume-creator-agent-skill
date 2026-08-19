@@ -8,12 +8,12 @@ const { install, uninstall, listLocations, SKILL_NAME, packageRoot } = require('
 const pkg = JSON.parse(fs.readFileSync(path.join(packageRoot(), 'package.json'), 'utf8'));
 
 const HELP = `
-resume-architect-skill v${pkg.version}
+resume-creator-agent-skill v${pkg.version}
 Installs the "${SKILL_NAME}" agent skill: an interview-driven, ATS-safe, one-page
 resume builder that outputs Markdown first and PDF after approval.
 
 Usage
-  npx resume-architect-skill [command] [options]
+  npx github:sarveshtalele/resume-creator-agent-skill [command] [options]
 
 Commands
   install            Copy the skill into a skills directory (default command)
@@ -29,10 +29,10 @@ Options
   -v, --version      Show the package version
 
 Examples
-  npx resume-architect-skill                 # install into ./.claude/skills
-  npx resume-architect-skill install -g      # install for all projects
-  npx resume-architect-skill install -d ~/work/app
-  npx resume-architect-skill uninstall -g
+  npx github:sarveshtalele/resume-creator-agent-skill                 # install into ./.claude/skills
+  npx github:sarveshtalele/resume-creator-agent-skill install -g      # install for all projects
+  npx github:sarveshtalele/resume-creator-agent-skill install -d ~/work/app
+  npx github:sarveshtalele/resume-creator-agent-skill uninstall -g
 `;
 
 function parseArgs(argv) {
